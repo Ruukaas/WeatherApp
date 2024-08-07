@@ -32,6 +32,8 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weatherapp.ui.DataField
+import com.weatherapp.ui.PasswordField
 import com.weatherapp.ui.theme.WeatherAppTheme
 
 class RegisterActivity : ComponentActivity() {
@@ -66,35 +68,13 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             text = "Faça seu cadastro",
             fontSize = 24.sp
         )
-        OutlinedTextField(
-            value = username,
-            label = { Text(text = "Digite seu nome de usuário") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { username = it }
-        )
+        DataField(value = username, label = "Digite seu nome de usuário", onValueChange = {username = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = email,
-            label = { Text(text = "Digite seu email") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { email = it },
-        )
+        DataField(value = email, label = "Digite seu email", onValueChange = {email = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = password,
-            label = { Text(text = "Digite sua senha") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { password = it },
-            visualTransformation = PasswordVisualTransformation()
-        )
+        PasswordField(value = password, label = "Digite sua senha", onValueChange = {password = it})
         Spacer(modifier = Modifier.size(24.dp))
-        OutlinedTextField(
-            value = confirmPassword,
-            label = { Text(text = "Confirme sua senha") },
-            modifier = Modifier.fillMaxWidth(),
-            onValueChange = { confirmPassword = it },
-            visualTransformation = PasswordVisualTransformation()
-        )
+        PasswordField(value = confirmPassword, label = "Confirme sua senha", onValueChange = {confirmPassword = it})
         Spacer(modifier = Modifier.size(24.dp))
         Row(modifier = modifier) {
             Button(
@@ -107,7 +87,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
                         password.isNotEmpty() && confirmPassword.isNotEmpty()
                         && password.equals(confirmPassword)
             ) {
-                Text("Login")
+                Text("Cadastrar")
             }
             Spacer(modifier = Modifier.size(24.dp))
             Button(
