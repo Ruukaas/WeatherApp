@@ -17,8 +17,12 @@ fun DataField(modifier: Modifier = Modifier,
         value = value,
         label = {Text(label)},
         modifier = modifier.fillMaxWidth(),
-        onValueChange = onValueChange
+        onValueChange = onValueChange,
+
+
     )
+
+
 }
 
 @Composable fun PasswordField(modifier: Modifier = Modifier,

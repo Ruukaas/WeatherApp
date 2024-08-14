@@ -43,6 +43,7 @@ fun LoginPage(modifier: Modifier = Modifier) {
             text = "Bem-vindo/a!",
             fontSize = 24.sp
         )
+
         Spacer(modifier = Modifier.size(24.dp))
         DataField(value = email, label = "Digite seu email", onValueChange = { email = it })
         Spacer(modifier = Modifier.size(24.dp))
