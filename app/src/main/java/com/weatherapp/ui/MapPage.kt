@@ -1,5 +1,6 @@
 package com.weatherapp.ui
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,7 @@ import com.weatherapp.R
 
 @Preview
 @Composable
-fun MapPage(modifier: Modifier = Modifier) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()

@@ -1,6 +1,7 @@
 package com.weatherapp.ui
 
 import android.app.Activity
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,7 +27,7 @@ import com.weatherapp.R
 
 @Preview
 @Composable
-fun HomePage(modifier: Modifier = Modifier) {
+fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -43,3 +44,4 @@ fun HomePage(modifier: Modifier = Modifier) {
         )
     }
 }
+
