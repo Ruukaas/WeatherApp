@@ -12,11 +12,13 @@ class FBDatabase(private val listener: Listener? = null) {
     private val auth = Firebase.auth
     private val db = Firebase.firestore
     private var citiesListReg: ListenerRegistration? = null
+
     interface Listener {
         fun onUserLoaded(user: User)
         fun onCityAdded(city: City)
         fun onCityRemoved(city: City)
     }
+
     init {
         auth.addAuthStateListener { auth ->
             if (auth.currentUser == null) {
@@ -49,7 +51,7 @@ class FBDatabase(private val listener: Listener? = null) {
         if (auth.currentUser == null)
             throw RuntimeException("User not logged in!")
         val uid = auth.currentUser!!.uid
-        db.collection("users").document(uid + "").set(user.toFBUser());
+        db.collection("users").document(uid + "").set(user.toFBUser())
 
     }
     fun add(city: City) {

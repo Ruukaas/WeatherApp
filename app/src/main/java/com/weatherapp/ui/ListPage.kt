@@ -1,6 +1,5 @@
 package com.weatherapp.ui
 
-import android.app.Activity
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.clickable
@@ -22,15 +21,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
 
 @Preview
 @Composable
-fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context) {
+fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
     val cityList = viewModel.cities
     LazyColumn(
         modifier = Modifier
@@ -40,7 +39,7 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
         items(cityList) { city ->
             CityItem(city = city,
                 onClose =
-                { viewModel.remove(city) },
+                { fbDatabase.remove(city) },
                 onClick = {
                 Toast.makeText(context, "Cidade aberta", Toast.LENGTH_SHORT).show()
             })

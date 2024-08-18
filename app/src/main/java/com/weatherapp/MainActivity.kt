@@ -1,7 +1,7 @@
 package com.weatherapp
 
-import android.os.Bundle
 import android.Manifest
+import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
@@ -30,8 +30,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.model.City
 import com.weatherapp.ui.CityDialog
-import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.MainViewModel
 import com.weatherapp.ui.nav.BottomNavBar
 import com.weatherapp.ui.nav.BottomNavItem
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
         val viewModel : MainViewModel by viewModels()
         setContent {
             val navController = rememberNavController()
-
+            val fbDB = remember { FBDatabase (viewModel) }
             var showDialog by remember { mutableStateOf(false) }
             val context = LocalContext.current
             val currentRoute = navController.currentBackStackEntryAsState()
@@ -61,7 +62,7 @@ class MainActivity : ComponentActivity() {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
                     onConfirm = { city ->
-                        if (city.isNotBlank()) viewModel.add(city)
+                        if (city.isNotBlank()) fbDB.add(City(name = city, weather = ""))
                         showDialog = false
                     })
                 Scaffold(
@@ -95,7 +96,7 @@ class MainActivity : ComponentActivity() {
                     innerPadding ->
                     Box(modifier = Modifier.padding(innerPadding)) {
                         launcher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
-                        MainNavHost(navController = navController, viewModel = viewModel, context)
+                        MainNavHost(navController = navController, viewModel = viewModel, context = context, fbDatabase = fbDB)
                     }
                 }
             }
