@@ -22,16 +22,14 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
+import com.weatherapp.repo.Repository
 
 @Preview
 @Composable
-fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
+fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, repository: Repository) {
     val camPosState = rememberCameraPositionState ()
 
     Column() {
-        val recife = LatLng(-8.05, -34.9)
-        val caruaru = LatLng(-8.27, -35.98)
-        val joaopessoa = LatLng(-7.12, -34.84)
         val hasLocationPermission by remember {
             mutableStateOf( ContextCompat.checkSelfPermission(context,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -41,13 +39,7 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
         GoogleMap (
             modifier = Modifier.fillMaxSize(),
             onMapClick = {
-                fbDatabase.add(
-                    City(
-                        name = buildString {
-                            append("City:")
-                            append(it.latitude)
-                            append(it.longitude)
-                        }, weather = "", location = it))
+                repository.addCity(lat = it.latitude, lng = it.longitude)
                          },
             cameraPositionState = camPosState,
             properties = MapProperties(isMyLocationEnabled = hasLocationPermission),
@@ -59,25 +51,6 @@ fun MapPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Co
                         title = it.name, snippet = "${it.location}")
                 }
             }
-
-            Marker(
-                state = MarkerState(position = recife),
-                title = "Recife",
-                snippet = "Marcador em Recife",
-                icon = BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_BLUE)
-            )
-            Marker(
-                state = MarkerState(position = caruaru),
-                title = "Caruaru",
-                snippet = "Marcador em Caruaru",
-                icon = BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_RED)
-            )
-            Marker(
-                state = MarkerState(position = joaopessoa),
-                title = "João Pessoa",
-                snippet = "Marcador em João Pessoa",
-                icon = BitmapDescriptorFactory.defaultMarker( BitmapDescriptorFactory.HUE_GREEN)
-            )
         }
 
 

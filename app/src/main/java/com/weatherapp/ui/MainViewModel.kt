@@ -1,14 +1,17 @@
 package com.weatherapp.ui
 
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
 import com.weatherapp.model.User
+import com.weatherapp.repo.Repository
 
-class MainViewModel : ViewModelBase(), FBDatabase.Listener {
-    private val _cities = mutableStateListOf<City>()
-    val cities : List<City> get() = _cities
+class MainViewModel : ViewModelBase(),Repository.Listener {
+    private val _cities = mutableStateMapOf<String, City>()
+    val cities : List<City>
+        get() = _cities.values.toList()
 
     private val _user = mutableStateOf (User("", ""))
     val user : User
@@ -19,10 +22,10 @@ class MainViewModel : ViewModelBase(), FBDatabase.Listener {
     }
 
     override fun onCityAdded(city: City) {
-        _cities.add(city)
+        _cities[city.name] = city
     }
 
     override fun onCityRemoved(city: City) {
-        _cities.remove(city)
+        _cities.remove(city.name)
     }
 }

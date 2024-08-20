@@ -6,6 +6,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.weatherapp.db.fb.FBDatabase
+import com.weatherapp.repo.Repository
 import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.ListPage
 import com.weatherapp.ui.MainViewModel
@@ -13,17 +14,17 @@ import com.weatherapp.ui.MapPage
 
 
 @Composable
-fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, fbDatabase: FBDatabase) {
+fun MainNavHost(navController: NavHostController, viewModel: MainViewModel, context: Context, repository: Repository) {
     NavHost(navController, startDestination = BottomNavItem.HomePage.route) {
         // composable (route = NOME DESTA DESTINAÇÃO) { UI DA DESTINAÇÃO }
         composable(route = BottomNavItem.HomePage.route) {
-            HomePage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+            HomePage(viewModel = viewModel, context = context, repository = repository)
         }
         composable(route = BottomNavItem.ListPage.route) {
-            ListPage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+            ListPage(viewModel = viewModel, context = context, repository = repository)
         }
         composable(route = BottomNavItem.MapPage.route) {
-            MapPage(viewModel = viewModel, context = context, fbDatabase = fbDatabase)
+            MapPage(viewModel = viewModel, context = context, repository = repository)
         }
     }
 }
