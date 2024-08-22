@@ -1,9 +1,7 @@
 package com.weatherapp.ui
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
 import com.weatherapp.model.User
 import com.weatherapp.repo.Repository

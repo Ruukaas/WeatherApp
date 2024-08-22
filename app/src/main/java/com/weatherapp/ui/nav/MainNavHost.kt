@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.repo.Repository
 import com.weatherapp.ui.HomePage
 import com.weatherapp.ui.ListPage

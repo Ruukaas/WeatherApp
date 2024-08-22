@@ -16,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.weatherapp.R
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.repo.Repository
 
 @Preview

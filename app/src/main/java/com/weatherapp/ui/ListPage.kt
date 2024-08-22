@@ -24,7 +24,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.weatherapp.db.fb.FBDatabase
 import com.weatherapp.model.City
 import com.weatherapp.repo.Repository
 
@@ -70,7 +69,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = "Clima",
+                text = city.weather?:"Clima",
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {
