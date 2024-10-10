@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBox
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,6 +40,7 @@ import java.text.DecimalFormat
 @Preview
 @Composable
 fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, repository: Repository) {
+    var icon = if (viewModel.city?.isMonitored == true) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder
     Column {
         Row {
             AsyncImage( // Substitui o Icon model
@@ -49,10 +52,22 @@ fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
             val format = DecimalFormat("#.0")
             Column {
                 Spacer(modifier = Modifier.size(20.dp))
-                Text(
-                    text = viewModel.city?.name?:"Selecione uma cidade...",
-                    fontSize = 24.sp
-                )
+                Row {
+                    Text(
+                        text = viewModel.city?.name?:"Selecione uma cidade...",
+                        fontSize = 24.sp
+                    )
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Monitor?",
+                        modifier = Modifier.size(32.dp)
+                            .clickable (enabled = viewModel.city != null) {
+                                repository.update(viewModel.city!!
+                                    .copy(isMonitored = !viewModel.city!!.isMonitored!!))
+                            }
+                    )
+                }
+
                 Spacer(modifier = Modifier.size(10.dp))
                 Text(
                     text = viewModel.city?.weather?.desc?:"...",
@@ -87,8 +102,9 @@ fun ForecastItem(forecast: Forecast, onClick: (Forecast) -> Unit, modifier: Modi
     val tempMax = format.format(forecast.tempMax)
     Row(
         modifier = modifier
-            .fillMaxWidth().padding(8.dp)
-            .clickable( onClick = { onClick(forecast) }),
+            .fillMaxWidth()
+            .padding(8.dp)
+            .clickable(onClick = { onClick(forecast) }),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage( // Substitui o Icon

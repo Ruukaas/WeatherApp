@@ -14,6 +14,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -56,7 +58,8 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
                         }
                         launchSingleTop = true
                     }
-            })
+            },
+                viewModel = viewModel)
         }
     }
 }
@@ -67,7 +70,8 @@ fun CityItem(
     city: City,
     onClick: () -> Unit,
     onClose: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel
 ) {
     Row(
         modifier = modifier.fillMaxWidth().padding(8.dp).clickable { onClick() },
@@ -91,6 +95,11 @@ fun CityItem(
         IconButton(onClick = onClose) {
             Icon(Icons.Filled.Close, contentDescription = "Close")
         }
+        Icon(
+            imageVector = if (city?.isMonitored == true) Icons.Outlined.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = "Monitor?",
+            modifier = Modifier.size(32.dp)
+        )
     }
 }
 
