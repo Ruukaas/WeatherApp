@@ -2,6 +2,7 @@ package com.weatherapp.db.fb
 
 import com.google.android.gms.maps.model.LatLng
 import com.weatherapp.model.City
+import com.weatherapp.model.Weather
 
 class FBCity() {
     var name : String? = null
@@ -10,7 +11,7 @@ class FBCity() {
 
     fun toCity(): City {
         val latlng = LatLng(lat ?: 0.0, lng ?: 0.0)
-        return City(name!!, weather = "", location = latlng)
+        return City(name!!, location = latlng)
     }
 }
 fun City.toFBCity() : FBCity {

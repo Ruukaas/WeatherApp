@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.sp
 import com.weatherapp.model.City
 import com.weatherapp.repo.Repository
 
-@Preview
+
 @Composable
 fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, repository: Repository) {
     val cityList = viewModel.cities
@@ -37,6 +37,8 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
             .padding(8.dp)
     ) {
         items(cityList) { city ->
+            if (city.weather == null) {
+                repository.loadWeather(city) }
             CityItem(city = city,
                 onClose =
                 { repository.remove(city) },
@@ -69,7 +71,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather?:"Clima",
+                text = city.weather?.desc?:"Carregando...",
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {
