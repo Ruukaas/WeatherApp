@@ -24,12 +24,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.weatherapp.model.City
 import com.weatherapp.repo.Repository
+import com.weatherapp.ui.nav.BottomNavItem
 
 
 @Composable
-fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, repository: Repository) {
+fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: Context, repository: Repository, navCtrl: NavHostController) {
     val cityList = viewModel.cities
     LazyColumn(
         modifier = Modifier
@@ -40,10 +42,17 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
             if (city.weather == null) {
                 repository.loadWeather(city) }
             CityItem(city = city,
-                onClose =
-                { repository.remove(city) },
+                onClose = { repository.remove(city) },
                 onClick = {
-                Toast.makeText(context, "Cidade aberta", Toast.LENGTH_SHORT).show()
+                    viewModel.city = city
+                    repository.loadForecast(city)
+                    navCtrl.navigate(BottomNavItem.HomePage.route) {
+                        navCtrl.graph.startDestinationRoute?.let {
+                            popUpTo(it) { saveState = true }
+                            restoreState = true
+                        }
+                        launchSingleTop = true
+                    }
             })
         }
     }
