@@ -72,4 +72,12 @@ class Repository (private var listener : Listener): FBDatabase.Listener {
             listener.onCityUpdated(city)
         }
     }
+
+    fun loadBitmap(city: City) {
+        weatherService.getBitmap(city.weather!!.imgUrl) { bitmap ->
+            city.weather!!.bitmap = bitmap
+            listener.onCityUpdated(city)
+        }
+    }
+
 }
