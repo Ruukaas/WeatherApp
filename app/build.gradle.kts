@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.weatherapp"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
+    implementation ("androidx.work:work-runtime-ktx:2.8.1") //pratica 10
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
@@ -88,5 +89,6 @@ dependencies {
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("io.coil-kt.coil3:coil-compose:3.0.0-rc01") //Coil
     implementation ("com.squareup.picasso:picasso:2.8") // Picasso
+
 
 }
