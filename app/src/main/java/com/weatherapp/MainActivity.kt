@@ -49,9 +49,9 @@ class MainActivity : ComponentActivity() {
         val viewModel : MainViewModel by viewModels()
         setContent {
             val navController = rememberNavController()
-            val repo = remember { Repository (viewModel) }
-            var showDialog by remember { mutableStateOf(false) }
             val context = LocalContext.current
+            val repo = remember { Repository (context,viewModel) }
+            var showDialog by remember { mutableStateOf(false) }
             val currentRoute = navController.currentBackStackEntryAsState()
             val showButton = currentRoute.value?.destination?.route != BottomNavItem.MapPage.route
             val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.RequestPermission(), onResult = {} )
