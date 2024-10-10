@@ -64,13 +64,18 @@ fun HomePage(modifier: Modifier = Modifier, viewModel: MainViewModel, context: C
                     fontSize = 20.sp)
             }
         }
-        if (viewModel.city == null ||
-            viewModel.city!!.forecast == null) return
-
-        LazyColumn {
-                items(viewModel.city!!.forecast!!) { forecast ->
-                    ForecastItem(forecast, onClick = { }, modifier = modifier )
+        // if (viewModel.city == null ||
+        // viewModel.city!!.forecast == null) return
+        viewModel.city?.forecast?.let { forecasts ->
+            LazyColumn {
+                items(forecasts) { forecast ->
+                    ForecastItem(
+                        forecast = forecast,
+                        onClick = { },
+                        modifier = modifier
+                    )
                 }
+            }
         }
     }
 }
